@@ -3,7 +3,7 @@ just using a subset of them in certain ways. But still, I have to go through the
 complex setup process, writing lengthy symbol names and long lists of
 parameters, etc.
 
-This is my motivation for writing this WebGL framework (Dale's WebGL framework,
+This is my motivation for writing this WebGL Framework (Dale's WebGL framework,
 or DGL). It works on several abstraction levels - from wrappers for native WebGL
 APIs to mathmatics utilities to retained mode drawing based on scene graphs. You
 can choose to work on certain comfortable or suitable levels.
