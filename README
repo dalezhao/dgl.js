@@ -1,0 +1,27 @@
+WebGL provides a powerful and flexible set of APIs. But most of the time I am
+just using a subset of them in certain ways. But still, I have to go through the
+complex setup process, writing lengthy symbol names and long lists of
+parameters, etc.
+
+This is my motivation for writing this WebGL framework (Dale's WebGL framework,
+or DGL). It works on several abstraction levels - from wrappers for native WebGL
+APIs to mathmatics utilities to retained mode drawing based on scene graphs. You
+can choose to work on certain comfortable or suitable levels.
+
+Currently, DGL consists of the following components, in different degrees of
+abstraction:
+
+  - Foundation: Mainly provides wrappers for WebGL APIs to save the amount of
+                code to invoke them, while still exposing clear WebGL logics.
+  - Mathmatics: Contains utility functions for mathematics, e.g. vector and
+                matrix computation and generation.
+  - Scene: The core part of retained-mode drawing related functionality, e.g.
+           scene graphs, rendering procedure, etc. Also provides functions for
+           basic mesh geometry generation and communication with built-in
+           shaders. (Support for textures will be added soon.)
+  - Interaction: Provides facilities for animation and user input handling.
+  - Formats: Contains functions for parsing 3D model descriptions in various
+             formats.
+
+DGL also comes with some built-in shader programs that are commonly used, e.g.
+Blinn-Phong shading, etc. (To be separated from test programs.)
