@@ -13,7 +13,7 @@ abstraction:
 
   - Foundation: Mainly provides wrappers for WebGL APIs to save the amount of
                 code to invoke them, while still exposing clear WebGL logics.
-  - Mathmatics: Contains utility functions for mathematics, e.g. vector and
+  - Mathematics: Contains utility functions for mathematics, e.g. vector and
                 matrix computation and generation.
   - Scene: The core part of retained-mode drawing related functionality, e.g.
            scene graphs, rendering procedure, etc. Also provides functions for

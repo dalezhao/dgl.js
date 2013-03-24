@@ -9,7 +9,7 @@ var positions = [
 var idx = [];
 var normals = [];
 var ambient = [1.0, 1.0, 1.0];
-var diffuse = [0.4, 0.7, 0.8];
+var diffuse = [0.7, 0.4, 0.2];
 var specular = [0.8, 0.8, 0.8];
 var specPwr = [20.0];
 
@@ -121,7 +121,7 @@ function onload() {
 	
 	// Start drawing.
 	gl.clearColor(1.0, 1.0, 1.0, 1.0);
-	gl.viewport(0, 0, canvas.width, canvas.height);
+	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	
 	// gl.drawArrays(gl.TRIANGLES, 0, positions.length / 3);

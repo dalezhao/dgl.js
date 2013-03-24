@@ -72,7 +72,7 @@ function setupMeshes() {
 			z *= 1.5;
 			return -0.8 * (Math.sin(Math.abs(x * x + z * z)) / (x * x + z * z) - x * x / 5);
 		},
-		-2, -2, 2, 2, 0.05, 0.05
+		-2, -2, 2, 2, 0.04, 0.04
 	);
 	
 	positions = mesh.pos;
@@ -122,7 +122,7 @@ function onload() {
 	
 	// Start drawing.
 	gl.clearColor(1.0, 1.0, 1.0, 1.0);
-	gl.viewport(0, 0, canvas.width, canvas.height);
+	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	
 	// gl.drawArrays(gl.TRIANGLES, 0, positions.length / 3);

@@ -258,3 +258,5 @@ DGL.attrV3 = function(gl, program, name, buffer, esize, offset) {
 	gl.vertexAttribPointer(index, 3, gl.FLOAT, false, esize, offset);
 	gl.enableVertexAttribArray(index);
 };
+
+// TODO Add utilities/wrappers for texture loading.
