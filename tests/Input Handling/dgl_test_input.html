@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>DGL Test - Input Handling</title>
+		<script src="../../src/dgl.js"></script>
+		<script src="../../src/dglm.js"></script>
+		<script src="../../src/dgls.js"></script>
+		<script src="../../src/dglf.js"></script>
+		<script src="../../src/dgli.js"></script>
+		<script src="dgl_test_input.js"></script>
+		<script id="vshader" type="x-shader/x-vertex">
+
+			attribute vec3 aPosition;
+			attribute vec3 aNormal;
+			
+			uniform vec3 ambient;
+			uniform vec3 diffuse;
+			uniform vec3 specular;
+			uniform float specPwr;
+
+			uniform int nAmbientLights;
+			uniform vec3 ambientLightAmbients[16];
+			uniform int nPointLights;
+			uniform vec3 pointLightPositions[16];
+			uniform vec3 pointLightDiffuses[16];
+			uniform vec3 pointLightSpeculars[16];
+			uniform float pointLightAttenuateCos[16];
+			
+			uniform mat4 perspective;
+			uniform mat4 camera;
+			uniform vec3 cameraPosition;
+			
+			varying vec4 vColor;
+			varying vec3 vNormal;
+			varying vec3 vPosition;
+			
+			uniform float viewportX;
+			uniform float viewportY;
+			uniform float scaledViewportX;
+			uniform float scaledViewportY;
+			uniform int button;
+			uniform int mousePressed;
+
+			void main() {
+				
+				gl_Position = perspective * camera * vec4(aPosition, 1.0);
+				
+				vNormal = aNormal;
+				vPosition = aPosition.xyz;
+			}
+
+		</script>
+
+		<script id="fshader" type="x-shader/x-fragment">
+
+			precision mediump float;
+			varying vec4 vColor;
+			varying vec3 vNormal;
+			varying vec3 vPosition;
+
+			uniform vec3 ambient;
+			uniform vec3 diffuse;
+			uniform vec3 specular;
+			uniform float specPwr;
+
+			uniform int nAmbientLights;
+			uniform vec3 ambientLightAmbients[16];
+			uniform int nPointLights;
+			uniform vec3 pointLightPositions[16];
+			uniform vec3 pointLightDiffuses[16];
+			uniform vec3 pointLightSpeculars[16];
+			uniform float pointLightAttenuateCos[16];
+			
+			uniform mat4 perspective;
+			uniform mat4 camera;
+			uniform vec3 cameraPosition;
+			
+			uniform float viewportX;
+			uniform float viewportY;
+			uniform float scaledViewportX;
+			uniform float scaledViewportY;
+			uniform int button;
+			uniform int mousePressed;
+
+			void main() {
+				
+				vec3 shade = vec3(0.0);
+				
+				float specPwr = specPwr;
+				if(mousePressed != 0) specPwr = specPwr / 10.0;
+				
+				for(int i = 0; i < 16; ++i) {
+					
+					vec3 ambientLightAmbient = ambientLightAmbients[i];
+					
+					if(length(ambientLightAmbient) == 0.0) continue;
+					
+					shade += ambient * ambientLightAmbient;
+				}
+				
+				for(int i = 0; i < 16; ++i) {
+					
+					vec3 pointLightPosition = pointLightPositions[i];
+					vec3 pointLightDiffuse = pointLightDiffuses[i];
+					vec3 pointLightSpecular = pointLightSpeculars[i];
+					
+					if(length(pointLightDiffuse) == 0.0
+						&& length(pointLightSpecular) == 0.0)
+						continue;
+					
+					vec3 l = normalize(pointLightPosition - vPosition);
+					vec3 lambertian = diffuse * pointLightDiffuse * max(0.0, dot(vNormal, l));
+					vec3 v = normalize(cameraPosition - vPosition);
+					vec3 h = normalize(v + l);
+					vec3 blingPhong = specular * pointLightSpecular * pow(max(0.0, dot(vNormal, h)), specPwr);
+					float distance = length(pointLightPosition - vPosition);
+					float attenuate = distance * distance / pointLightAttenuateCos[i];
+					
+					shade += (lambertian + blingPhong) / attenuate;
+				}
+				
+				gl_FragColor = vec4(shade, 1.0);
+			}
+
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas" width="1200" height="800"></canvas> 
+	</body>
+</html>
