@@ -107,8 +107,10 @@ function onload() {
 	gl = DGL.context(canvas);
 	gl.enable(gl.DEPTH_TEST);
 	
-	var vsource = document.getElementById("vshader").innerText;
-	var fsource = document.getElementById("fshader").innerText;
+	var vsource = document.getElementById("vshader").innerText
+		|| document.getElementById("vshader").textContent;
+	var fsource = document.getElementById("fshader").innerText
+		|| document.getElementById("fshader").textContent;
 	
 	var vshader = DGL.vshader(gl, vsource);
 	var fshader = DGL.fshader(gl, fsource);
@@ -125,7 +127,6 @@ function onload() {
 	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	
-	// gl.drawArrays(gl.TRIANGLES, 0, positions.length / 3);
 	gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);
 }
 

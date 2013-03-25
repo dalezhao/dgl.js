@@ -64,8 +64,10 @@ function setupGl() {
 	gl = DGL.context(canvas);
 	gl.enable(gl.DEPTH_TEST);
 	
-	var vsource = document.getElementById("vshader").innerText;
-	var fsource = document.getElementById("fshader").innerText;
+	var vsource = document.getElementById("vshader").innerText
+		|| document.getElementById("vshader").textContent;
+	var fsource = document.getElementById("fshader").innerText
+		|| document.getElementById("fshader").textContent;
 	
 	var vshader = DGL.vshader(gl, vsource);
 	var fshader = DGL.fshader(gl, fsource);
@@ -109,7 +111,7 @@ function setupMeshes() {
 		},
 		-2, -2, 2, 2, 0.02, 0.02
 	);
-	
+	// var mesh = DGL.createCuboid([-1, 0, -1], 2, 2, 2);
 	positions = mesh.pos;
 	normals = mesh.normals;
 	idx = mesh.idx;

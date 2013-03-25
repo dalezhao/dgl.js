@@ -6,11 +6,17 @@
 
 DGL.requestAnimationFrame = function(callback) {
 	
-	// TODO Improve compatibility.
-	
 	callback = callback || function() {};
 	
-	return window.requestAnimationFrame(callback);
+	var requestAnimationFrame =
+		window.requestAnimationFrame ||
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function(callback) { return setTimeout(callback, 1000 / 60); };
+	
+	return requestAnimationFrame(callback);
 };
 
 DGL.addMouseMove = function(gl, callback, program, names) {

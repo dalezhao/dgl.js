@@ -54,17 +54,6 @@ function setupCamera() {
 
 function setupMeshes() {
 	
-	/*var mesh = DGL.createSurface(
-		function(x, z) {
-			x *= 1.5;
-			z *= 1.5;
-			// return Math.sin(x + 0.2 * z) / (x * x + z * z + 1) * 1.5;
-			return -0.6 * (Math.sin(Math.abs(x * x + z * z)) / (x * x + z * z) - x * x / 5);
-		},
-		-2, -2, 2, 2, 0.04, 0.04
-	);
-	*/
-	// var mesh = DGL.createCuboid([-1, 1.0, 0.0], 2.5, 1.5, 1.5);
 	var mesh = DGL.parseObj(objSrc, false);
 	
 	positions = mesh.pos;
@@ -124,7 +113,6 @@ function onload() {
 	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	
-	// gl.drawArrays(gl.TRIANGLES, 0, positions.length / 3);
 	gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);
 }
 

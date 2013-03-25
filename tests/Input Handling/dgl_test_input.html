@@ -87,7 +87,7 @@
 				vec3 shade = vec3(0.0);
 				
 				float specPwr = specPwr;
-				if(mousePressed != 0) specPwr = specPwr / 10.0;
+				if(mousePressed != 0) shade = shade + vec3(0.2);
 				
 				for(int i = 0; i < 16; ++i) {
 					
