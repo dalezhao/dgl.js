@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>DGL Test - Input Handling</title>
+		<title>Cloth Simulation 1</title>
 		<script src="../../src/dgl.js"></script>
 		<script src="../../src/dglm.js"></script>
 		<script src="../../src/dgls.js"></script>
 		<script src="../../src/dglf.js"></script>
 		<script src="../../src/dgli.js"></script>
-		<script src="dgl_test_input.js"></script>
+		<script src="cloth_simulation_1.js"></script>
 		<script id="vshader" type="x-shader/x-vertex">
 
 			attribute vec3 aPosition;
@@ -85,9 +85,6 @@
 			void main() {
 				
 				vec3 shade = vec3(0.0);
-				
-				float specPwr = specPwr;
-				// if(mousePressed != 0) shade = shade + vec3(0.2);
 				
 				for(int i = 0; i < 16; ++i) {
 					

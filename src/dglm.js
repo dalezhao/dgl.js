@@ -136,6 +136,21 @@ DGL.v3cross = function(v1, v2) {
 };
 
 /*
+ * Compute the magnitude of the vector.
+ * 
+ * [params]
+ * v: The vector.
+ * 
+ * [return]
+ * The magnitude of the vector.
+ * 
+ */
+DGL.v3norm = function(v) {
+	
+	return Math.sqrt(DGL.v3dot(v, v));
+};
+
+/*
  * Compute the normalized vector of the vector. The original vector is not modified.
  * 
  * [params]
@@ -147,7 +162,7 @@ DGL.v3cross = function(v1, v2) {
  */
 DGL.v3normalize = function(v) {
 	
-	var norm = Math.sqrt(DGL.v3dot(v, v));
+	var norm = DGL.v3norm(v);
 	if(norm == 0.0) return [0.0, 0.0, 0.0];
 	else return [v[0] / norm, v[1] / norm, v[2] / norm];
 };

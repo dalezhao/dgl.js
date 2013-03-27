@@ -154,6 +154,8 @@ DGL.triangleNormal = function(p0, p1, p2) {
  */
 DGL.createSurface = function(f, x0, z0, x1, z1, sx, sz) {
 
+	// TODO Optional rotation to generate surfaces based another plane.
+
 	var nx = Math.ceil((x1 - x0) / sx) + 1;
 	var nz = Math.ceil((z1 - z0) / sz) + 1;
 	var pos = new Array(3 * nx * nz);

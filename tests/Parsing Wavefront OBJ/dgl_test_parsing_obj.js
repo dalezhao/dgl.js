@@ -11,7 +11,7 @@ var normals = [];
 var ambient = [1.0, 1.0, 1.0];
 var diffuse = [0.7, 0.4, 0.2];
 var specular = [0.8, 0.8, 0.8];
-var specPwr = [20.0];
+var specPwr = [50.0];
 
 var ambientLightAmbient = [0.0, 0.0, 0.0];
 var pointLightPosition = [
