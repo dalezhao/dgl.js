@@ -29,6 +29,7 @@
 			uniform mat4 perspective;
 			uniform mat4 camera;
 			uniform vec3 cameraPosition;
+			uniform mat4 transform;
 			
 			varying vec4 vColor;
 			varying vec3 vNormal;
@@ -36,10 +37,13 @@
 
 			void main() {
 				
-				gl_Position = perspective * camera * vec4(aPosition, 1.0);
+				vec4 transformedPosition = transform * vec4(aPosition, 1.0);
+				vec4 transformedNormal = transform * vec4(aNormal, 0.0);
 				
-				vNormal = aNormal;
-				vPosition = aPosition.xyz;
+				gl_Position = perspective * camera * transformedPosition;
+				
+				vNormal = normalize(transformedNormal.xyz);
+				vPosition = transformedPosition.xyz;
 			}
 
 		</script>
@@ -105,6 +109,18 @@
 			}
 
 		</script>
+		<style>
+			canvas {
+				position: fixed;
+			}
+			pre {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				z-index: -1;
+				color: #aaa;
+			}
+		</style>
 	</head>
 	<body>
 		<canvas id="canvas" width="800" height="600"></canvas>

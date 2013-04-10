@@ -113,7 +113,7 @@ var gravity = function() {
 
 		// We can use a little trick here to make it look as if
 		// the cloth is covering something below it.
-		if(Math.abs(x0) < 0.5 && Math.abs(x2) < 0.25 && x1 < 0.25) continue;
+		if(Math.abs(x0) < 0.25 && Math.abs(x2) < 0.25 && x1 < 0.8) continue;
 		else if(x1 < 0) continue;
 		
 		fs[i * 3 + 0] += mass * g[0];
@@ -616,11 +616,6 @@ function update() {
 	
 	// Update the camera.
 	updateCamera();
-	
-	// Copy the updated position and normal arrays into the buffer.
-	var posbuf = DGL.arrayV3(gl, rawbuf, esize, 0, positions);
-	var normbuf = DGL.arrayV3(gl, rawbuf, esize, 12, normals);
-	DGL.bufferArray(gl, vertexBuffer, rawbuf);
 }
 
 function onload() {
@@ -639,6 +634,11 @@ function onload() {
 		
 		// Update.
 		update();
+		
+		// Copy the updated position and normal arrays into the buffer.
+		var posbuf = DGL.arrayV3(gl, rawbuf, esize, 0, positions);
+		var normbuf = DGL.arrayV3(gl, rawbuf, esize, 12, normals);
+		DGL.bufferArray(gl, vertexBuffer, rawbuf);
 		
 		// Draw.
 		gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);

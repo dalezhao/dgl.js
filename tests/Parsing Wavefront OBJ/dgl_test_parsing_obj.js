@@ -42,7 +42,6 @@ function setupLights() {
 
 function setupCamera() {
 
-	// DGL.uniformM4(gl, program, "ortho", DGL.ortho(2.0, 2.0, 0.0, 0.5));
 	DGL.uniformM4(gl, program, "perspective", DGL.perspective(
 		0.2, 0.15, 2.0, 1000));
 	DGL.uniformM4(gl, program, "camera", DGL.camera(
@@ -79,6 +78,8 @@ function setupMeshes() {
 	// Indices.
 	var indexBuffer = gl.createBuffer();
 	DGL.bufferIdxArray(gl, indexBuffer, new Uint16Array(idx));
+	
+	DGL.uniformM4(gl, program, "transform", DGL.rotate([1.0, 1.0, 0.0], Math.PI / 180 * -45));
 }
 
 var objSrc;
@@ -109,7 +110,7 @@ function onload() {
 	setupMeshes();
 	
 	// Start drawing.
-	gl.clearColor(1.0, 1.0, 1.0, 1.0);
+	gl.clearColor(0.0, 0.0, 0.0, 0.0);
 	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	

@@ -4,6 +4,9 @@
  * 
  */
 
+// TODO Add constant definitions.
+// e.g. size of a float, int, etc.
+
 var DGL = DGL || {}
 
 /*

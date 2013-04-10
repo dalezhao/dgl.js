@@ -18,6 +18,26 @@ DGL.v3zero = function() {
 	return [0.0, 0.0, 0.0];
 };
 
+DGL.v3x = function() {
+	
+	return [1.0, 0.0, 0.0];
+};
+
+DGL.v3y = function() {
+	
+	return [0.0, 1.0, 0.0];
+};
+
+DGL.v3z = function() {
+	
+	return [0.0, 0.0, 1.0];
+};
+
+DGL.v3eq = function(v1, v2) {
+	
+	return (v1[0] == v2[0]) && (v1[1] == v2[1]) && (v1[2] == v2[2]);
+};
+
 /*
  * Compute the negation of a 3-D vector. The original vector is not modified.
  * 
@@ -184,6 +204,53 @@ DGL.m4i = function() {
 	];
 };
 
+DGL.m4mult = function(m1, m2) {
+	
+	var m = new Array(16);
+	for(var i = 0; i < 16; ++i) {
+		m[i] = 0.0;
+	}
+	
+	for(var i = 0; i < 4; ++i) {
+		for(var j = 0; j < 4; ++j) {
+			for(var k = 0; k < 4; ++k) {
+				m[4 * i + j] += m1[4 * i + k] * m2[4 * k + j];
+			}
+		}
+	}
+	
+	return m;
+};
+
+DGL.m4mults = function(m, s) {
+	
+	var mr = new Array(16);
+	for(var i = 0; i < 16; ++i) {
+		mr[i] = m[i] * s;
+	}
+	
+	return mr;
+};
+
+DGL.m4from3 = function(m3) {
+	
+	var m = new Array(16);
+	for(var i = 0; i < 3; ++i) {
+		for(var j = 0; j < 3; ++j) {
+			m[4 * i + j] = m3[3 * i + j];
+		}
+	}
+	m[4 * 0 + 3] = 0.0;
+	m[4 * 1 + 3] = 0.0;
+	m[4 * 2 + 3] = 0.0;
+	m[4 * 3 + 3] = 1.0;
+	m[4 * 3 + 0] = 0.0;
+	m[4 * 3 + 1] = 0.0;
+	m[4 * 3 + 2] = 0.0;
+	
+	return m;
+};
+
 /*
  * Get a translation matrix.
  * 
@@ -228,10 +295,50 @@ DGL.scale = function(sx, sy, sz) {
 	];
 };
 
-DGL.rotate = function(rx, ry, rz) {
+DGL.rotate = function(w, a) {
 	
-	// TODO
-	return DGL.m4i();
+	var w = DGL.v3normalize(w);
+	
+	var u = null;
+	var v = null;
+	
+	if(DGL.v3eq(w, DGL.v3y())) {
+		
+		u = DGL.v3x();
+		v = DGL.v3neg(DGL.v3z());
+		
+	} else if(DGL.v3eq(w, DGL.v3neg(DGL.v3y()))) {
+		
+		u = DGL.v3x();
+		v = DGL.v3z();
+		
+	} else {
+		
+		u = DGL.v3normalize(DGL.v3cross(DGL.v3y(), w));
+		v = DGL.v3normalize(DGL.v3cross(w, u));	
+	}
+	
+	var m1 = DGL.m4from3([
+		u[0], v[0], w[0],
+		u[1], v[1], w[1],
+		u[2], v[2], w[2]
+	]);
+	
+	var m2 = DGL.m4from3([
+		Math.cos(a), -Math.sin(a), 0.0,
+		Math.sin(a), Math.cos(a), 0.0,
+		0.0, 0.0, 1.0
+	]);
+	
+	var m3 = DGL.m4from3([
+		u[0], u[1], u[2],
+		v[0], v[1], v[2],
+		w[0], w[1], w[2]
+	]);
+	
+	var rotm = DGL.m4mult(DGL.m4mult(m1, m2), m3);
+	
+	return rotm;
 };
 
 /*
